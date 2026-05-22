@@ -20,5 +20,5 @@ export default async function handler (req, res) {
     const payload = JSON.parse(atob(id_token.split('.')[1]))
     const session = JSON.stringify({ name: payload.name, email: payload.email })
     res.setHeader('Set-Cookie', `session=${session}; HttpOnly; Path=/; Max-Age=86400`)
-    res.redirect('/dashboard.html')
+    res.send(fs.readFileSync(process.cwd() + './views/dashboard.html', 'utf8'))
 }
