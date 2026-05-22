@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { parse } from 'cookie'
+import fs from 'fs'
 
 export default async function handler (req, res) {
     const { code, state } = req.query
@@ -20,5 +21,5 @@ export default async function handler (req, res) {
     const payload = JSON.parse(atob(id_token.split('.')[1]))
     const session = JSON.stringify({ name: payload.name, email: payload.email })
     res.setHeader('Set-Cookie', `session=${session}; HttpOnly; Path=/; Max-Age=86400`)
-    res.send(fs.readFileSync(process.cwd() + './views/dashboard.html', 'utf8'))
+    res.send(fs.readFileSync(process.cwd() + '/views/dashboard.html', 'utf8'))
 }

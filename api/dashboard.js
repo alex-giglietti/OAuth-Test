@@ -7,6 +7,6 @@ export default function handler(req, res) {
     if (!isConnected.session)
         res.redirect('/index.html')
     else { 
-        res.send(fs.readFileSync(process.cwd() + './views/dashboard.html', 'utf8'))
+        res.send(fs.readFileSync(process.cwd() + '/views/dashboard.html', 'utf8'))
     }
 }
