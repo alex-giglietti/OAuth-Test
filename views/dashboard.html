@@ -252,6 +252,7 @@
       animation: rise 1s ease 1.6s forwards;
     }
   </style>
+  <meta http-equiv="Content-Security-Policy" content="img-src 'self' https://lh3.googleusercontent.com">
 </head>
 <body>
 
@@ -274,6 +275,10 @@
       Identity verified &mdash; <span id="user">loading...</span>
     </p>
 
+    <div class="photo-wrap">
+      <img id= "photos">
+    </div>
+
     <div class="status">
       <span class="status-dot"></span>
       Secure session active
@@ -294,6 +299,13 @@
       .catch(() => {
         document.getElementById('user').textContent = 'Unknown'
       })
+  </script>
+  <script>
+    fetch('/api/info')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('photos').src = data.photos[0].url
+    })
   </script>
 </body>
 </html>

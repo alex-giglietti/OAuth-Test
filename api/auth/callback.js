@@ -17,9 +17,9 @@ export default async function handler (req, res) {
             grant_type: 'authorization_code',
         })
     })
-    const { id_token } = await tokenRes.json()
+    const { id_token, access_token } = await tokenRes.json()
     const payload = JSON.parse(atob(id_token.split('.')[1]))
-    const session = JSON.stringify({ name: payload.name, email: payload.email })
+    const session = JSON.stringify({ name: payload.name, email: payload.email, accToken: access_token })
     res.setHeader('Set-Cookie', `session=${session}; HttpOnly; Path=/; Max-Age=86400`)
     res.send(fs.readFileSync(process.cwd() + '/views/dashboard.html', 'utf8'))
 }
